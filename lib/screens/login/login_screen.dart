@@ -1,24 +1,30 @@
 import 'package:barista/components/button/custom_button.dart';
 import 'package:barista/constant.dart';
+import 'package:barista/screens/scan/scan_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   static const routeName = '/login_screen';
 
   @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        backgroundColor: kButtonTextColor,
         automaticallyImplyLeading: false,
-        leading: IconButton(
-          onPressed: () {},
-          icon: SvgPicture.asset('assets/icons/arrow_back.svg'),
+        leading: CupertinoButton(
+          onPressed: () => Navigator.pop(context),
+          child: SvgPicture.asset('assets/icons/arrow_back.svg'),
         ),
-        actions: [],
       ),
-      body: SafeArea(
+      child: SafeArea(
         child: Container(
             child: Column(
           children: [
@@ -30,57 +36,86 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   Text(
                     'Log in with your email',
-                    style: Theme.of(context).textTheme.headline5,
+                    style: TextStyle(
+                      color: kBodyTextColor,
+                      fontSize: 20,
+                      fontFamily: kFontFamily,
+                    ),
                   ),
                   SizedBox(
                     height: 10,
                   ),
-                  TextFormField(
-                    decoration: kInputDecoration.copyWith(
-                      hintText: 'example@selise.ch',
-                      suffixIconConstraints: BoxConstraints(maxWidth: 48),
-                      suffixIcon: SvgPicture.asset(
-                        'assets/icons/mail.svg',
+                  CupertinoTextField(
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.tertiarySystemFill,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: CupertinoColors.white,
+                          width: 1,
+                        ),
                       ),
+                    ),
+                    placeholder: 'example@selise.ch',
+                    placeholderStyle: TextStyle(
+                      color: Color.fromRGBO(193, 193, 193, 0.5),
+                      fontFamily: kFontFamily,
+                    ),
+                    showCursor: true,
+                    cursorColor: kButtonBgColor,
+                    cursorWidth: 1,
+                    suffix: SvgPicture.asset(
+                      'assets/icons/mail.svg',
                     ),
                     keyboardType: TextInputType.emailAddress,
                     autocorrect: true,
                     autofillHints: [AutofillHints.email],
                     style: TextStyle(
-                      color: Colors.white,
+                      color: CupertinoColors.white,
                     ),
                   ),
-                  TextFormField(
-                    decoration: kInputDecoration.copyWith(
-                      hintText: 'Password',
-                      suffixIconConstraints: BoxConstraints(maxWidth: 48),
-                      suffixIcon: SvgPicture.asset(
-                        'assets/icons/eye_off.svg',
+                  SizedBox(
+                    height: 20,
+                  ),
+                  CupertinoTextField(
+                    decoration: BoxDecoration(
+                      color: CupertinoColors.tertiarySystemFill,
+                      border: Border(
+                        bottom: BorderSide(
+                          color: CupertinoColors.white,
+                          width: 1,
+                        ),
                       ),
+                    ),
+                    placeholder: 'password',
+                    placeholderStyle: TextStyle(
+                      color: Color.fromRGBO(193, 193, 193, 0.5),
+                      fontFamily: kFontFamily,
+                    ),
+                    showCursor: true,
+                    cursorColor: kButtonBgColor,
+                    cursorWidth: 1,
+                    suffix: SvgPicture.asset(
+                      'assets/icons/eye_off.svg',
                     ),
                     keyboardType: TextInputType.text,
                     obscureText: true,
                     style: TextStyle(
-                      color: Colors.white,
+                      color: CupertinoColors.white,
                     ),
+                    onChanged: (value) => {},
                   ),
                   SizedBox(
-                    height: 10,
+                    height: 20,
                   ),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
-                      'I forgot my password',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontFamily: kFontFamily,
-                        fontWeight: FontWeight.w300,
-                      ),
-                    ),
-                    style: TextButton.styleFrom(
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 0,
+                  Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      onTap: () {},
+                      child: Text(
+                        'I forgot my password',
+                        style: TextStyle(
+                          color: kBodyTextColor,
+                        ),
                       ),
                     ),
                   ),
@@ -88,7 +123,11 @@ class LoginScreen extends StatelessWidget {
               )),
             ),
             Spacer(),
-            CustomButton(onPress: () {}, buttonText: 'Login'),
+            CustomButton(
+                onPress: () {
+                  Navigator.pushNamed(context, ScanScreen.routeName);
+                },
+                buttonText: 'Login'),
           ],
         )),
       ),

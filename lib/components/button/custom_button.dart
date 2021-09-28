@@ -1,35 +1,39 @@
 import 'package:barista/constant.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 
 class CustomButton extends StatelessWidget {
-  final Function onPress;
+  final Function? onPress;
   final String buttonText;
+  final Color? color;
 
   CustomButton({
-    required this.onPress,
+    this.onPress,
     required this.buttonText,
+    this.color,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 8),
-      child: ElevatedButton(
-        onPressed: () {
-          onPress();
-        },
-        child: Text(
-          buttonText,
-          style: TextStyle(
-            fontSize: 24,
-            fontFamily: kFontFamily,
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 10),
+      child: SizedBox(
+        width: double.infinity,
+        height: 80,
+        child: CupertinoButton(
+          onPressed: onPress != null
+              ? () {
+                  onPress!();
+                }
+              : null,
+          color: color != null ? color : kButtonBgColor,
+          child: Text(
+            buttonText,
+            style: TextStyle(
+              fontSize: 24,
+              fontFamily: kFontFamily,
+              color: kButtonTextColor,
+            ),
           ),
-        ),
-        style: TextButton.styleFrom(
-          backgroundColor: kButtonBgColor,
-          primary: kButtonTextColor,
-          minimumSize: Size(double.infinity, 40),
         ),
       ),
     );
